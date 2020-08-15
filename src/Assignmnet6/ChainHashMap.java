@@ -8,6 +8,10 @@ public class ChainHashMap<K,V> extends AbstractHashMap<K,V> {
     public ChainHashMap(){super();}
     public ChainHashMap(int cap){super(cap);}
     public ChainHashMap(int cap, int p){super(cap,p);}
+    /** Exercise 1 Addition**/
+    public ChainHashMap(int cap, int p, double lf){super(cap,p,lf);}
+    /** Exercise 1 Addition Ends **/
+
     /** Creates an empty table having length equ7al to current capacity. */
     protected void createTable(){
         table = (UnsortedTableMap<K,V>[]) new UnsortedTableMap[capacity];

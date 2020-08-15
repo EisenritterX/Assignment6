@@ -8,6 +8,18 @@ public abstract class AbstractHashMap<K,V> extends AbstractMap<K,V> {
     protected int capacity; // length of the table
     private int prime;      // prime factor
     private long scale, shift;      //The shift and scaling factors
+    /** Exercise 1 Addition */
+    private double lfscale = 2.0;        //Load factor scale; default divide by 2 (0.5)
+    public AbstractHashMap(int cap, int p, double loadFactor){
+        prime = p;
+        capacity = cap;
+        lfscale = 1/loadFactor;
+        Random rand = new Random();
+        scale = rand.nextInt(prime-1)+1;
+        shift = rand.nextInt(prime);
+        createTable();
+    }
+    /** Exercise 1 Addition Ends */
     public AbstractHashMap(int cap, int p){
         prime = p;
         capacity = cap;
@@ -24,8 +36,14 @@ public abstract class AbstractHashMap<K,V> extends AbstractMap<K,V> {
     public V remove(K key) {return bucketRemove(hashValue(key),key);}
     public V put(K key, V value){
         V answer = bucketPut(hashValue(key),key,value);
+        /** Original **/
+        /*
         if(n>capacity/2)                        // keep load factor <= 0.5
             resize(2*capacity-1);      // (or find a nearby prime)
+         */
+        /** Original End **/
+        if(n>capacity/lfscale)                             // Custom load factor scale
+            resize((int)(lfscale*capacity-1));      //
         return answer;
     }
 
